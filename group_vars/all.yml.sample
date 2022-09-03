@@ -133,14 +133,14 @@ dummy:
 # - 'distro' means that no separate repo file will be added
 #  you will get whatever version of Ceph is included in your Linux distro.
 # 'local' means that the ceph binaries will be copied over from the local machine
-#ceph_origin: dummy
+ceph_origin: repository
 #valid_ceph_origins:
 #  - repository
 #  - distro
 #  - local
 
 
-#ceph_repository: dummy
+ceph_repository: community
 #valid_ceph_repository:
 #  - community
 #  - rhcs
@@ -156,7 +156,8 @@ dummy:
 #
 #ceph_mirror: http://download.ceph.com
 #ceph_stable_key: https://download.ceph.com/keys/release.asc
-#ceph_stable_release: dummy
+ceph_stable_release: luminous
+osd_scenario: lvm
 #ceph_stable_repo: "{{ ceph_mirror }}/debian-{{ ceph_stable_release }}"
 
 #nfs_ganesha_stable: true # use stable repos for nfs-ganesha
@@ -212,7 +213,7 @@ dummy:
 #
 #
 #ceph_stable_repo_uca: "http://ubuntu-cloud.archive.canonical.com/ubuntu"
-#ceph_stable_openstack_release_uca: queens
+ceph_stable_openstack_release_uca: ussuri
 #ceph_stable_release_uca: "{{ ansible_lsb.codename }}-updates/{{ ceph_stable_openstack_release_uca }}"
 
 # REPOSITORY: openSUSE OBS
@@ -342,7 +343,7 @@ dummy:
 # Preference will go to monitor_address if both monitor_address and monitor_interface are defined.
 #monitor_interface: interface
 #monitor_address: x.x.x.x
-#monitor_address_block: subnet
+monitor_address_block: subnet/24
 # set to either ipv4 or ipv6, whichever your network is using
 #ip_version: ipv4
 #mon_use_fqdn: false # if set to true, the MON name used will be the fqdn in the ceph.conf
@@ -409,7 +410,7 @@ dummy:
 # Eg. If you want to specify for each radosgw node which address the radosgw will bind to you can set it in your **inventory host file** by using 'radosgw_address' variable.
 # Preference will go to radosgw_address if both radosgw_address and radosgw_interface are defined.
 #radosgw_interface: interface
-#radosgw_address: x.x.x.x
+radosgw_address: public int
 #radosgw_address_block: subnet
 #radosgw_keystone_ssl: false # activate this when using keystone PKI keys
 # Rados Gateway options
@@ -560,15 +561,15 @@ dummy:
 #container_binary: docker
 #docker_exec_cmd:
 #docker: false
-#ceph_docker_image: "ceph/daemon"
-#ceph_docker_image_tag: latest-mimic
-#ceph_docker_registry: docker.io
+ceph_docker_image: "ceph/daemon"
+ceph_docker_image_tag: latest
+ceph_docker_registry: docker.io
 ## Client only docker image - defaults to {{ ceph_docker_image }}
 #ceph_client_docker_image: "{{ ceph_docker_image }}"
 #ceph_client_docker_image_tag: "{{ ceph_docker_image_tag }}"
 #ceph_client_docker_registry: "{{ ceph_docker_registry }}"
 #ceph_docker_enable_centos_extra_repo: false
-#ceph_docker_on_openstack: false
+ceph_docker_on_openstack: false
 #containerized_deployment: False
 
 ############
@@ -599,7 +600,7 @@ dummy:
 #############
 # OPENSTACK #
 #############
-#openstack_config: false
+openstack_config: true
 #openstack_glance_pool:
 #  name: "images"
 #  pg_num: "{{ osd_pool_default_pg_num }}"
@@ -671,12 +672,12 @@ dummy:
 #  application: "rbd"
 #  size: "{{ osd_pool_default_size }}"
 
-#openstack_pools:
-#  - "{{ openstack_glance_pool }}"
-#  - "{{ openstack_cinder_pool }}"
-#  - "{{ openstack_nova_pool }}"
+openstack_pools:
+  - "{{ openstack_glance_pool }}"
+  - "{{ openstack_cinder_pool }}"
+  - "{{ openstack_nova_pool }}"
 #  - "{{ openstack_cinder_backup_pool }}"
-#  - "{{ openstack_gnocchi_pool }}"
+  - "{{ openstack_gnocchi_pool }}"
 #  - "{{ openstack_cephfs_data_pool }}"
 #  - "{{ openstack_cephfs_metadata_pool }}"
 
