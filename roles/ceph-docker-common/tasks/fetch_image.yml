@@ -6,7 +6,7 @@
   register: ceph_mon_inspect
   when:
     - mon_group_name in group_names
-    - ceph_mon_container_stat.get('rc') == 0
+    - ceph_mon_container_stat.get('rc') == 1
     - ceph_mon_container_stat.get('stdout_lines', [])|length != 0
 
 - name: inspect ceph osd container
